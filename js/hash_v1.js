@@ -5,7 +5,7 @@ $(document).ready(function() {
 		clearMessages();
 		var input_string = $.trim($('#input_string').val());
 		if(isInputStringValid(input_string)){
-			var hash = CryptoJS.MD5('Hello MD5');
+			var hash = CryptoJS.MD5(input_string);
 			$('#hash_result').html("MD5:" + hash);
 		}
 	});
