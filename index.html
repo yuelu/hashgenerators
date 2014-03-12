@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Online Hash Generator</title>
+		<meta name="description" content="Online Hash Generator">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/vendor/modernizr-2.7.1.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<!-- Header nav bar-->
+		<div id="header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Hash Generator</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="#">Generators</a>
+						</li>
+						<li>
+							<a href="#md5">MD5 Tutorial</a>
+						</li>
+						<li>
+							<a href="#sha1">SHA1 Tutorial</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Page content -->
+		<div class="container text-center">
+			<!-- input string text area -->
+			<div class="row">
+				<textarea id="input_string" name="input_string" rows="10" width="30em"></textarea>
+			</div>
+
+			<!-- hash error -->
+			<div id="hash_result_error" class="row result-error"></div>
+
+			<!-- hash result -->
+			<div id="hash_result" class="row result-box"></div>
+			
+			<!-- control buttons -->
+			<div class="row control-group">
+				<button id="btn_md5" name="btn_md5" class="btn btn-info">
+					MD5
+				</button>
+				<button id="btn_sha1" name="btn_sha1" class="btn btn-info">
+					SHA-1
+				</button>
+			</div>
+
+
+		</div>
+
+		<!-- related hash links -->
+		<div class="container">
+			<h3><a id="md5">What is MD5</a></h3>
+			<p>
+				MD5 stands for Message Digest Algorithm 5. It is a widely used cryptographic hash function producing a 128-bit (16-byte) hash value, typically expressed in text format as a 32 digit hexadecimal number. MD5 digests have many uses. One such use is to run MD5 to generate a digest version of the password and store the digest in the database. When we authenticate the user, we calculate the MD5 digest of the password typed in by the user and compare it with the one we stored in the database to see if they match. It's easy to generate a digest, but it's computationally impossible to find out the original String based on the digest.
+			</p>
+			<p>
+				For more details, check out <a href="http://en.wikipedia.org/wiki/MD5" target="_blank">MD5 Wikipedia</a>
+			</p>
+			<h4>Java Example</h4>
+			<pre class="prettyprint">
+				
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class MD5Example {
+
+	public static void main(String[] args) throws Exception {
+
+		final String inputString = "Hello MD5";
+
+		System.out.println("MD5 hex for '" + inputString + "' :");
+		System.out.println(getMD5Hex(inputString));
+	}
+
+	public static String getMD5Hex(final String inputString) throws NoSuchAlgorithmException {
+
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(inputString.getBytes());
+
+		byte[] digest = md.digest();
+
+		return convertByteToHex(digest);
+	}
+
+	private static String convertByteToHex(byte[] byteData) {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}
+
+		return sb.toString();
+	}
+}
+
+</pre>									
+
+ <h4>Console Output</h4>
+			<pre class="prettyprint">
+MD5 hex for 'Hello MD5' :
+e5dadf6524624f79c3127e247f04b548
+</pre>
+			<h3><a id="sha1">What is SHA-1</a></h3>
+			<p>
+				SHA-1 stands for Secure Hash Algorithm 1. SHA-1 produces a 160-bit (20-byte) hash value. A SHA-1 hash value typically forms a hexadecimal number, 40 digits long.		
+			</p>
+			
+			<p>
+				For more details, check out <a href="http://en.wikipedia.org/wiki/SHA-1" target="_blank">SHA-1 Wikipedia</a>
+			</p>
+
+			<h4>Java Example</h4>
+			<pre class="prettyprint">
+	
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class SHA1Example {
+
+	public static void main(String[] args) throws Exception {
+
+		final String inputString = "Hello SHA-1";
+
+		System.out.println("SHA-1 hex for '" + inputString + "' :");
+		System.out.println(getMD5Hex(inputString));
+	}
+
+	public static String getMD5Hex(final String inputString) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("SHA-1");
+		md.update(inputString.getBytes());
+
+		byte[] digest = md.digest();
+
+		return convertByteToHex(digest);
+	}
+
+	private static String convertByteToHex(byte[] byteData) {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}
+
+		return sb.toString();
+	}
+}
+</pre>									
+
+ <h4>Console Output</h4>
+			<pre class="prettyprint">
+SHA-1 hex for 'Hello SHA-1' :
+5d01f064d0718bbef06a043e336af2a3dffbc1cf
+</pre>
+		</div>
+
+		<div id="footer">
+			<div class="container">
+				<p class="text-muted">
+					Copyright © 2014 JK Group. All Rights Reserved.
+				</p>
+			</div>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script>
+			window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
+		</script>
+		<script src="js/vendor/bootstrap.min.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+		<script src="js/hash.js"></script>
+
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+		<script>
+			( function(b, o, i, l, e, r) {
+					b.GoogleAnalyticsObject = l;
+					b[l] || (b[l] = function() {
+						(b[l].q = b[l].q || []).push(arguments)
+					});
+					b[l].l = +new Date;
+					e = o.createElement(i);
+					r = o.getElementsByTagName(i)[0];
+					e.src = '//www.google-analytics.com/analytics.js';
+					r.parentNode.insertBefore(e, r)
+				}(window, document, 'script', 'ga'));
+			ga('create', 'UA-XXXXX-X');
+			ga('send', 'pageview');
+		</script>
+	</body>
+</html>
